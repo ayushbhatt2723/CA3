@@ -1,0 +1,91 @@
+//prime no MultiThread program
+
+
+#include<stdio.h>
+
+#include<stdlib.h>
+
+#include<sys/types.h>
+
+#include<sys/stat.h>
+
+#include<string.h>
+
+#include<pthread.h>
+
+#include<unistd.h>
+
+
+
+void *thfunction(void *avg);
+
+int var;
+
+void main()
+
+{
+ int r;
+
+ void *th_result;
+ pthread_t mythread;
+
+ printf("\nEnter the number:");
+ 
+
+ scanf("%d",&var);
+
+ r=pthread_create(&mythread,NULL,thfunction,(void*)var);
+ 
+if(r!=0)
+ 
+ {
+
+  printf("\nThread creation failed!");
+ 
+
+ }
+  printf("\nwaiting for thread to join.");
+
+ int s=pthread_join(mythread,&th_result);
+
+ if(s!=0)
+
+ {
+ 
+  printf("Thread join failed!"); 
+
+ }
+
+ printf("\nThread has joined and it is returning %d\n",(int*)th_result);
+
+ 
+}
+
+ void *thfunction(void *avg)
+
+{
+  
+  int n;
+  int x=n-1; 
+  for(n>2;n--)
+
+  {
+    for(x>2;x--)
+   {
+     if(n%x==0)
+    {
+      break;
+}
+}
+  if(n%x!=0)
+{
+ printf("%d",n);
+}
+}
+}
+
+ }
+
+ pthread_exit("\nThank you!");
+
+}
