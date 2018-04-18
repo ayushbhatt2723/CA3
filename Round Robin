@@ -1,76 +1,82 @@
 // Round Robin question
+
 #include<iostream.h>
+#include<stdio.h>
+#include<conio.h>
+
 using namespace std;
 
-void findWaitingTime(int processes[], int n,int bt[], int wt[], int quantum)
+void findavgTime(int n,int processes[],int bt[],int quantum)
 {
-    int rem_bt[n];
-    for (int i = 0;i<n;i++)
-        rem_bt[i]=bt[i];
+    int wt[n],tat[n];
+    float total_wt = 0,total_tat = 0,n;
  
-    int t = 0; 
-    while (1)
-    {
-        bool done = true;
- 
-          for (int i=0;i<n;i++)
-        {
-            if (rem_bt[i]>0)
-            {
-                done = false;
- 
-                if (rem_bt[i]>quantum)
-                {
-                    t += quantum;
-                    rem_bt[i]= quantum;
-                }
-                else
-                {
-                    t=t+rem_bt[i];
-                    wt[i]=t-bt[i];
-                    rem_bt[i]= 0;
-                }
-            }
-        }
-        if (done==true)
-          break;
-    }
-}
- 
-// Function to calculate turn around time
-void findTurnAroundTime(int processes[], int n,int bt[], int wt[], int tat[])
-{ 
-    bt[i] + wt[i]
-    for (int i = 0;i<n;i++)
-        tat[i]=bt[i]+wt[i];
-}
- 
-void avgTime(int processes[], int n, int bt[],int quantum)
-{
-    int wt[n],tat[n],total_wt = 0,total_tat = 0;
- 
-    findWaitingTime(processes,n,bt,wt,quantum);
+    findWaitingTime(processes,n,bt,wt,time_quantum);
 
     findTurnAroundTime(processes,n,bt,wt,tat);
  
-    cout << "Processes "<< " Burst time "<< " Waiting time "<< " Turn around time\n";
+    cout<<"Processes"<<"Burst time"<<"Waiting time"<<"Turn around time";
  
     for (int i=0;i<n;i++)
     {
         total_wt = total_wt + wt[i];
         total_tat = total_tat + tat[i];
-        cout << " " << i+1 << "\t\t" << bt[i] <<"\t "<< wt[i] <<"\t\t " << tat[i] <<endl;
-    }
- 
-    cout << "Average waiting time = " << (float)total_wt / (float)n;
-    cout << "\nAverage turn around time ="<< (float)total_tat / (float)n;
+        cout<<"\n"<< i+1<<"\n\t"<<bt[i]<<"\n"<<wt[i]<<"\n"<<tat[i]<<endl;
+    } 
+    cout <<"\n Avg waiting time="<<total_wt/n;
+    cout <<"\n Avg turn around time ="<<total_tat/n;
 }
+
+void WaitingTime(int processes[], int n,int bt[], int wt[], int time_quantum)
+{
+    int rem[n];
+    for (int i=0;i<n;i++)
+        rem[i]=bt[i];
+
+    int t=0; 
+    while(1)
+    {
+        bool wait = true;
+
+          for (int i=0;i<n;i++)
+        {
+            if (rem[i]>0)
+            {
+                wait = false;
+ 
+                if (rem[i]> time_quantum)
+                {
+                    t += time_quantum;
+                    rem[i]= time_quantum;
+                }
+                else
+                {
+                    t=t+rem[i];
+                    wt[i]=t-bt[i];
+                    rem[i]= 0;
+                }
+            }
+        }
+        if (wait==true)
+          break;
+    }
+}
+ 
+// Function to calculate turn around time
+
+void findTurnAroundTime(int processes[], int n,int bt[], int wt[], int tat[])
+{ ss
+    for (int i=0;i<n;i++)
+        tat[i]=bt[i]+wt[i];
+}
+ 
 int main()
 {
-    int processes[] = { 1, 2, 3};
+    int processes[] = {4,5,6};
     int n = sizeof processes / sizeof processes[0];
-    int burst_time[] = {10, 5, 8}; 
-    int quantum = 2;
-    avgTime(processes, n, burst_time, quantum);
+    int burst_time[] = {23,1,2};
+ 
+    int quantum = 10;
+    findavgTime(processes, n, burst_time, time_quantum);
     return 0;
 }
